@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="Jellyfin.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jellyfin"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource AppDefaultBackgroundColor}"
+    xmlns:models="using:Jellyfin.Models">
+
+    <StackPanel>
+        <TextBlock FontSize="50" x:Name="UsernameTextbox" Foreground="White" Text="user"></TextBlock>
+        <Button Foreground="White" Click="Logout_Click"> Logout</Button>
+        <ListView IsItemClickEnabled="True" ItemClick="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ViewList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
+          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+          ScrollViewer.IsHorizontalRailEnabled="True">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate  x:DataType="models:BaseItemDto">
+                    <GridViewItem>
+                        <RelativePanel >
+                            <Image x:Name="CoverImage" Height="200px" Width="300px" Source="{x:Bind getImageUrl() }"></Image>
+                            <TextBlock RelativePanel.Below="CoverImage" RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
+                            <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="24"/>
+                            </TextBlock>
+                        </RelativePanel>
+                    </GridViewItem>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+</Page>

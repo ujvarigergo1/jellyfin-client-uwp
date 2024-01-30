@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <AuthenticationMode>Universal</AuthenticationMode>
+    <RemoteDebugMachine>XBOX</RemoteDebugMachine>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugMachine>XBOX</RemoteDebugMachine>
+    <DeploymentType>CopyToDevice</DeploymentType>
+    <CreateCleanLayout>false</CreateCleanLayout>
+    <AuthenticationMode>Universal</AuthenticationMode>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Source>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</Source>
+    <SmallTileSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</SmallTileSource>
+    <MediumTileSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</MediumTileSource>
+    <WideTileSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</WideTileSource>
+    <LargeTileSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</LargeTileSource>
+    <AppIconSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</AppIconSource>
+    <SplashScreenSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</SplashScreenSource>
+    <PackageLogoSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</PackageLogoSource>
+  </PropertyGroup>
+</Project>
