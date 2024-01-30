@@ -1,5 +1,5 @@
 # Jellyfin client (UWP)
-### Simple jellyfim nedia player optimized for XBOX
+### Simple jellyfin media player optimized for XBOX
 
 ### ***!!!This project is under development, do not use!!!***
 
