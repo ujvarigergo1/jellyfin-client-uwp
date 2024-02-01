@@ -1,1 +1,0 @@
-C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Jellyfin.csproj;x64
