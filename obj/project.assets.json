@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "UAP,Version=v10.0.14393": {
+    "UAP,Version=v10.0.15063": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -2791,7 +2791,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-arm": {
+    "UAP,Version=v10.0.15063/win10-arm": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -5602,7 +5602,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-arm-aot": {
+    "UAP,Version=v10.0.15063/win10-arm-aot": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -8449,7 +8449,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-arm64-aot": {
+    "UAP,Version=v10.0.15063/win10-arm64-aot": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -11283,7 +11283,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-x64": {
+    "UAP,Version=v10.0.15063/win10-x64": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -14103,7 +14103,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-x64-aot": {
+    "UAP,Version=v10.0.15063/win10-x64-aot": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -16959,7 +16959,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-x86": {
+    "UAP,Version=v10.0.15063/win10-x86": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -19779,7 +19779,7 @@
         }
       }
     },
-    "UAP,Version=v10.0.14393/win10-x86-aot": {
+    "UAP,Version=v10.0.15063/win10-x86-aot": {
       "Microsoft.AspNet.WebApi.Client/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -33453,7 +33453,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "UAP,Version=v10.0.14393": [
+    "UAP,Version=v10.0.15063": [
       "Microsoft.AspNet.WebApi.Client >= 6.0.0",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 6.2.14"
     ]
@@ -33466,11 +33466,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj",
+      "projectUniqueName": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj",
       "projectName": "Jellyfin",
-      "projectPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj",
+      "projectPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj",
       "packagesPath": "C:\\Users\\Gergo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\obj\\",
+      "outputPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -33483,20 +33483,20 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "uap10.0.14393"
+        "uap10.0.15063"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "uap10.0.14393": {
+        "uap10.0.15063": {
           "projectReferences": {}
         }
       }
     },
     "frameworks": {
-      "uap10.0.14393": {
+      "uap10.0.15063": {
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": {
             "target": "Package",

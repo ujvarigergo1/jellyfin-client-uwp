@@ -10,7 +10,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>a6dd4d33-820a-4a03-8946-9250aedded90</PackageIdentityName>
     <PackageIdentityPublisher>CN=Gergo</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,8 +18,8 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>747D3DDF66600D0F8F9A5B612DDC40F71DA1DC1126C91F015A6CCDBA0DDC84E4</RegisteredManifestChecksum>
+    <LayoutDir>C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\AppX</LayoutDir>
+    <RegisteredManifestChecksum>30BEA3CD216CABC7894DE282AFE8E3016F84BD9FEA2808A1CCBB84B28F3C9B01</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>a6dd4d33-820a-4a03-8946-9250aedded90_1.0.0.0_x64__en4sdbekbnvv2</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>a6dd4d33-820a-4a03-8946-9250aedded90_en4sdbekbnvv2!App</RegisteredUserModeAppID>
     <RegisteredPackageID>a6dd4d33-820a-4a03-8946-9250aedded90</RegisteredPackageID>
@@ -27,16 +27,16 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-01-29T14:44:55.147</Modified>
+      <Modified>2024-02-01T11:10:42.578</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\Jellyfin.exe">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\Jellyfin.exe">
       <PackagePath>entrypoint\Jellyfin.exe</PackagePath>
-      <Modified>2024-01-29T14:44:54.875</Modified>
+      <Modified>2024-02-01T11:10:42.162</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Gergo\.nuget\packages\microsoft.aspnet.webapi.client\6.0.0\lib\netstandard1.3\System.Net.Http.Formatting.dll">
       <PackagePath>System.Net.Http.Formatting.dll</PackagePath>
@@ -546,307 +546,311 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2023-09-30T01:17:28.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\LargeTile.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\LargeTile.scale-100.png">
       <PackagePath>Assets\LargeTile.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.317</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\LargeTile.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\LargeTile.scale-125.png">
       <PackagePath>Assets\LargeTile.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.342</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\LargeTile.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\LargeTile.scale-150.png">
       <PackagePath>Assets\LargeTile.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.373</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\LargeTile.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\LargeTile.scale-200.png">
       <PackagePath>Assets\LargeTile.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.422</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\LargeTile.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\LargeTile.scale-400.png">
       <PackagePath>Assets\LargeTile.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.587</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\logo_fg.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\logo_fg.png">
       <PackagePath>Assets\logo_fg.png</PackagePath>
       <Modified>2024-01-26T23:30:23.992</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SmallTile.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SmallTile.scale-100.png">
       <PackagePath>Assets\SmallTile.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.016</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SmallTile.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SmallTile.scale-125.png">
       <PackagePath>Assets\SmallTile.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.024</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SmallTile.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SmallTile.scale-150.png">
       <PackagePath>Assets\SmallTile.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.031</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SmallTile.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SmallTile.scale-200.png">
       <PackagePath>Assets\SmallTile.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.039</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SmallTile.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SmallTile.scale-400.png">
       <PackagePath>Assets\SmallTile.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.056</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SplashScreen.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SplashScreen.scale-100.png">
       <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.760</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SplashScreen.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SplashScreen.scale-125.png">
       <PackagePath>Assets\SplashScreen.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.796</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SplashScreen.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SplashScreen.scale-150.png">
       <PackagePath>Assets\SplashScreen.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.842</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SplashScreen.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SplashScreen.scale-400.png">
       <PackagePath>Assets\SplashScreen.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:02.197</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square150x150Logo.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square150x150Logo.scale-100.png">
       <PackagePath>Assets\Square150x150Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.065</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square150x150Logo.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square150x150Logo.scale-125.png">
       <PackagePath>Assets\Square150x150Logo.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.076</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square150x150Logo.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square150x150Logo.scale-150.png">
       <PackagePath>Assets\Square150x150Logo.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.089</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square150x150Logo.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square150x150Logo.scale-400.png">
       <PackagePath>Assets\Square150x150Logo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.153</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png">
       <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.703</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png">
       <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.708</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png">
       <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.734</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png">
       <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.713</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png">
       <PackagePath>Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.719</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-16.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.666</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-256.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.697</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-unplated_targetsize-32.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-unplated_targetsize-32.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-32.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.676</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
       <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-48.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.683</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.scale-100.png">
       <PackagePath>Assets\Square44x44Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.594</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.scale-125.png">
       <PackagePath>Assets\Square44x44Logo.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.601</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.scale-150.png">
       <PackagePath>Assets\Square44x44Logo.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.607</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.scale-400.png">
       <PackagePath>Assets\Square44x44Logo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.623</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.targetsize-16.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.targetsize-16.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-16.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.629</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.targetsize-24.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.targetsize-24.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.635</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.targetsize-256.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.targetsize-256.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-256.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.660</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.targetsize-32.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.targetsize-32.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-32.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.640</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.targetsize-48.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.targetsize-48.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-48.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.646</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\StoreLogo.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\StoreLogo.scale-100.png">
       <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:02.203</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\StoreLogo.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\StoreLogo.scale-125.png">
       <PackagePath>Assets\StoreLogo.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:02.209</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\StoreLogo.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\StoreLogo.scale-150.png">
       <PackagePath>Assets\StoreLogo.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:02.215</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\StoreLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\StoreLogo.scale-200.png">
       <PackagePath>Assets\StoreLogo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:02.223</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\StoreLogo.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\StoreLogo.scale-400.png">
       <PackagePath>Assets\StoreLogo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:02.234</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Wide310x150Logo.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Wide310x150Logo.scale-100.png">
       <PackagePath>Assets\Wide310x150Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.164</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Wide310x150Logo.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Wide310x150Logo.scale-125.png">
       <PackagePath>Assets\Wide310x150Logo.scale-125.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.178</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Wide310x150Logo.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Wide310x150Logo.scale-150.png">
       <PackagePath>Assets\Wide310x150Logo.scale-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.196</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Wide310x150Logo.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Wide310x150Logo.scale-400.png">
       <PackagePath>Assets\Wide310x150Logo.scale-400.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.298</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
       <Modified>2024-01-26T10:41:00.307</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.919</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.107</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.613</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.671</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2024-01-26T18:19:01.221</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2024-01-28T19:00:18.077</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\Jellyfin.xr.xml">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\Jellyfin.xr.xml">
       <PackagePath>Jellyfin.xr.xml</PackagePath>
-      <Modified>2024-01-29T14:38:27.745</Modified>
+      <Modified>2024-02-01T11:08:20.787</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2024-01-29T14:44:54.777</Modified>
+      <Modified>2024-02-01T11:10:42.071</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\HomeView.xbf">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\EpisodeSelectionView.xbf">
+      <PackagePath>EpisodeSelectionView.xbf</PackagePath>
+      <Modified>2024-02-01T11:10:42.071</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\HomeView.xbf">
       <PackagePath>HomeView.xbf</PackagePath>
-      <Modified>2024-01-29T14:44:54.777</Modified>
+      <Modified>2024-02-01T11:10:42.071</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2024-01-29T14:44:54.777</Modified>
+      <Modified>2024-02-01T11:10:42.071</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\MediaItemsBrowser.xbf">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\MediaItemsBrowser.xbf">
       <PackagePath>MediaItemsBrowser.xbf</PackagePath>
-      <Modified>2024-01-29T14:44:54.777</Modified>
+      <Modified>2024-02-01T11:10:42.071</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\MediaPlayerView.xbf">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\MediaPlayerView.xbf">
       <PackagePath>MediaPlayerView.xbf</PackagePath>
-      <Modified>2024-01-29T14:44:54.777</Modified>
+      <Modified>2024-02-01T11:10:42.071</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\UserLogin.xbf">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\UserLogin.xbf">
       <PackagePath>UserLogin.xbf</PackagePath>
-      <Modified>2024-01-29T14:44:54.777</Modified>
+      <Modified>2024-02-01T11:10:42.071</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.22621.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2023-09-30T04:03:44.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-01-29T14:38:28.147</Modified>
+      <Modified>2024-02-01T11:10:42.423</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin\bin\x64\Debug\Core\Jellyfin.exe">
+    <AppxPackagedFile Include="C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Debug\Core\Jellyfin.exe">
       <PackagePath>Jellyfin.exe</PackagePath>
-      <Modified>2024-01-29T14:44:55.145</Modified>
+      <Modified>2024-02-01T11:10:42.577</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

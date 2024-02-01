@@ -45,14 +45,43 @@ namespace Jellyfin
         public ObservableCollection<DiscoveryResponse> discoveryResult { get; }
         = new ObservableCollection<DiscoveryResponse>();
         ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+        DatagramSocket listenersocket = null;
+        const string port = "7359";
+        public Frame AppFrame { get { return this.Frame; } }
         public MainPage()
         {
             
-            this.InitializeComponent(); 
+            this.InitializeComponent();
+            SystemNavigationManager.GetForCurrentView().BackRequested +=
+                SystemNavigationManager_BackRequested;
             this.StartServerInitialization();
         }
-        DatagramSocket listenersocket = null;
-        const string port = "7359";
+
+        private void SystemNavigationManager_BackRequested(
+            object sender,
+            BackRequestedEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = this.BackRequested();
+            }
+        }
+        private bool BackRequested()
+        {
+            // Get a hold of the current frame so that we can inspect the app back stack
+            if (this.AppFrame == null)
+                return false;
+
+            // Check to see if this is the top-most page on the app back stack
+            if (this.AppFrame.CanGoBack)
+            {
+                // If not, set the event to handled and go back to the previous page in the
+                // app.
+                this.AppFrame.GoBack();
+                return true;
+            }
+            return false;
+        }
 
         private async void StartServerInitialization()
         {
@@ -114,5 +143,6 @@ namespace Jellyfin
             localSettings.Values["Address"] = ((DiscoveryResponse)(sender as ListView).SelectedValue).Address;
             Frame.Navigate(typeof(UserLogin));
         }
+
     }
 }

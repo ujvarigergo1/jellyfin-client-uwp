@@ -65,13 +65,13 @@ namespace Jellyfin
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\"");
-                
+
                 var response = await client.GetAsync((localSettings.Values["Address"] as string) + "/QuickConnect/Initiate");
                 try
                 {
                     response.EnsureSuccessStatusCode();
                     this.QuicConecctEnabled = true;
-                    var stringResponse =  await response.Content.ReadAsStringAsync();
+                    var stringResponse = await response.Content.ReadAsStringAsync();
                     this.quickConnectResult = JsonConvert.DeserializeObject<QuickConnectResult>(stringResponse);
                     this.ConnectionCodeText.Text = quickConnectResult.Code;
                     this.tryQuickConnectLogin();
@@ -92,15 +92,16 @@ namespace Jellyfin
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\"");
                 while (!this.quickConnectResult.Authenticated)
                 {
-                    var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/QuickConnect/Connect?secret="+ this.quickConnectResult.Secret);
+                    var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/QuickConnect/Connect?secret=" + this.quickConnectResult.Secret);
                     try
                     {
                         authenticationResponse.EnsureSuccessStatusCode();
                         var stringResponse = await authenticationResponse.Content.ReadAsStringAsync();
                         this.quickConnectResult = JsonConvert.DeserializeObject<QuickConnectResult>(stringResponse);
-                        if (!this.quickConnectResult.Authenticated) {
+                        if (!this.quickConnectResult.Authenticated)
+                        {
 
-                            await Task.Delay(5000);
+                            await Task.Delay(1000);
                         }
                     }
                     catch (Exception ex)
@@ -118,11 +119,12 @@ namespace Jellyfin
                     response.EnsureSuccessStatusCode();
                     this.QuicConecctEnabled = true;
                     var stringResponse = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<AuthenticationResult>(stringResponse,new JsonSerializerSettings() { });
+                    var result = JsonConvert.DeserializeObject<AuthenticationResult>(stringResponse, new JsonSerializerSettings() { });
                     localSettings.Values["User"] = JsonConvert.SerializeObject(result.User);
                     localSettings.Values["Session"] = JsonConvert.SerializeObject(result.SessionInfo);
                     localSettings.Values["AccessToken"] = result.AccessToken;
                     localSettings.Values["ServerId"] = result.ServerId;
+                    Debug.WriteLine("Succesful login");
                     Frame.Navigate(typeof(HomeView));
                 }
                 catch (Exception ex)
@@ -139,7 +141,8 @@ namespace Jellyfin
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 //client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser DeviceId=\"" + this.GetHashedPassword((localSettings.Values["Address"] as string)+ (localSettings.Values["Name"] as string) + this.Username) + "\", Client=\"Android TV\"");
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\"");
-                var response = await client.PostAsJsonAsync((localSettings.Values["Address"] as string)+ "/Users/AuthenticateByName",new {
+                var response = await client.PostAsJsonAsync((localSettings.Values["Address"] as string) + "/Users/AuthenticateByName", new
+                {
                     Username = this.Username,
                     Pw = this.Password
                 });
@@ -154,7 +157,8 @@ namespace Jellyfin
                     localSettings.Values["AccessToken"] = result.AccessToken;
                     localSettings.Values["ServerId"] = result.ServerId;
                     Frame.Navigate(typeof(HomeView));
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
                 }
@@ -175,5 +179,4 @@ namespace Jellyfin
             }
         }
     }
-   
-}
+    }

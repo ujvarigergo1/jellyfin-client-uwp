@@ -54,12 +54,11 @@ namespace Jellyfin
             this.MediaLibrary = (BaseItemDto)e.Parameter;
             mediaPlayer = new MediaPlayer();
             MainMediaPlayer.SetMediaPlayer(mediaPlayer);
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri((localSettings.Values["Address"] as string) + "/Videos/" + this.MediaLibrary.Id + "/stream?static=false&startTimeTicks=50&subtitleMethod=1"));
+            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri((localSettings.Values["Address"] as string) + "/Videos/" + this.MediaLibrary.Id + "/stream?container=mkv&static=true&subtitleMethod=1"));
             mediaPlayer.Play();
             mediaPlayer.CommandManager.PauseBehavior.EnablingRule = MediaCommandEnablingRule.Always;
             
             mediaPlayer.CommandManager.RewindBehavior.EnablingRule = MediaCommandEnablingRule.Always;
-            MainMediaPlayer.MediaPlayer.PlaybackSession.Position = MainMediaPlayer.MediaPlayer.PlaybackSession.Position.Add(new TimeSpan(0,0,20));
             Debug.WriteLine(MainMediaPlayer.MediaPlayer.PlaybackSession.CanSeek.ToString());
             //mediaPlayer.CommandManager.PositionReceived += (MediaPlaybackCommandManager sender, MediaPlaybackCommandManagerPositionReceivedEventArgs args) => { MainMediaPlayer.MediaPlayer.CanSeek };
             mediaPlayer.CommandManager.PauseReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPauseReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Pause(); };
@@ -100,33 +99,6 @@ namespace Jellyfin
         {
             playbackProgressInfo.IsPaused = true;
             MainMediaPlayer.MediaPlayer.Pause();
-        }
-        private async void Page_Drop(object sender, DragEventArgs e)
-        {
-            var def = e.GetDeferral();
-            var file = (StorageFile)(await e.DataView.GetStorageItemsAsync()).FirstOrDefault();
-            MainMediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
-
-            //await AppCore.Instance.Play(new StorageFile[] { file });
-            //EmbeddedPlayer.SetMediaPlayer(AppCore.Instance.MediaPlayer);
-
-            MainMediaPlayer.MediaPlayer.Play();
-            def.Complete();
-        }
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            if(e.Key == Windows.System.VirtualKey.GamepadB)
-            {
-                Frame rootFrame = Window.Current.Content as Frame;
-                if (rootFrame.CanGoBack)
-                {
-                    rootFrame.GoBack();
-                }
-            } else
-            {
-                base.OnKeyDown(e);
-            }
-            
         }
 
     }

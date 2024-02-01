@@ -48,6 +48,7 @@ namespace Jellyfin
 
 
         }
+
         public async void getUserMedia()
         {
             using (var client = new HttpClient())
@@ -55,12 +56,15 @@ namespace Jellyfin
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
-                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Users/" + this.User.Id + "/Items?ParentId=" + this.MediaLibrary.DisplayPreferencesId);
+                string parentId;
+                if(this.MediaLibrary.DisplayPreferencesId != null) {parentId = this.MediaLibrary.DisplayPreferencesId; } else { parentId = this.MediaLibrary.Id.ToString(); }
+                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Users/" + this.User.Id + "/Items?ParentId=" + parentId + (this.MediaLibrary.CollectionType == CollectionType.tvshows? "&Recursive=true&IncludeItemTypes=Series": ""));
                 try
                 {
                     authenticationResponse.EnsureSuccessStatusCode();
                     var stringResponse = JsonObject.Parse(await authenticationResponse.Content.ReadAsStringAsync());
-                    foreach (var item in JsonConvert.DeserializeObject<ObservableCollection<BaseItemDto>>(stringResponse["Items"].ToString()))
+                    var items = JsonConvert.DeserializeObject<ObservableCollection<BaseItemDto>>(stringResponse["Items"].ToString());
+                    foreach (var item in items)
                     {
                         this.UserMedia.Add(item);
                     };
@@ -80,13 +84,22 @@ namespace Jellyfin
         }
         private void MediaLibraries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(MediaPlayerView), (sender as GridView).SelectedValue);
+            if((((sender as GridView).SelectedValue) as BaseItemDto).Type == BaseItemKind.Series)
+            {
+                Frame.Navigate(typeof(EpisodeSelectionView), (sender as GridView).SelectedValue);
+            } else if((((sender as GridView).SelectedValue) as BaseItemDto).Type == BaseItemKind.BoxSet)
+            {
+                Frame.Navigate(typeof(MediaItemsBrowser), (sender as GridView).SelectedValue);
+            } else
+            {
+
+                Frame.Navigate(typeof(MediaPlayerView), (sender as GridView).SelectedValue);
+            }
         }
         private void MediaLibrary_SelectionChanged(object sender, ItemClickEventArgs e)
         {
             Frame.Navigate(typeof(MediaPlayerView), e.ClickedItem);
 
         }
-
+        }
     }
-}

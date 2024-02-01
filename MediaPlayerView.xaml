@@ -15,7 +15,7 @@
                 <MediaTransportControls 
                     IsNextTrackButtonVisible="True"
                     IsSeekEnabled="True"
-                    
+                    IsCompact="False"
                     IsPreviousTrackButtonVisible="True"
                     IsSkipBackwardButtonVisible="True"
                     IsSkipBackwardEnabled="True"
@@ -27,11 +27,5 @@
                     IsSkipForwardEnabled="True" />
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
-        <Button x:Name="PlayButton" Click="PlayButton_Click">
-            Play
-        </Button>
-        <Button x:Name="PauseButton" Click="PauseButton_Click" Margin="230,535,0,0" VerticalAlignment="Top">
-            Pause
-        </Button>
     </Grid>
 </Page>

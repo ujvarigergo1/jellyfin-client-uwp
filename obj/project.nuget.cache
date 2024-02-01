@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "opiN/1PYwgyQe31cNO92+3g4Ul2nR7WL9F9xKb6GCLW05LsOSHzSr5KwuJEsC3d8B/uRdzEG8mfRw/w+SiDwmg==",
+  "dgSpecHash": "Tg6w+52VSJi/edcpyEMBLpum+gdwTe7NVhVimtbMbiWjc/gN23Hp9GXnUTeROk11yyHIURfoZzd2n2VpLivraQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj",
+  "projectFilePath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gergo\\.nuget\\packages\\microsoft.aspnet.webapi.client\\6.0.0\\microsoft.aspnet.webapi.client.6.0.0.nupkg.sha512",
     "C:\\Users\\Gergo\\.nuget\\packages\\microsoft.bcl\\1.1.9\\microsoft.bcl.1.1.9.nupkg.sha512",

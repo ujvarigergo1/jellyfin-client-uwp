@@ -12,26 +12,20 @@
     <StackPanel>
         <TextBlock FontSize="50" x:Name="UsernameTextbox" Foreground="White" Text="user"></TextBlock>
         <Button Foreground="White" Click="Logout_Click"> Logout</Button>
-        <ListView IsItemClickEnabled="True" ItemClick="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ViewList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
-          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+        <GridView SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ViewList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
           ScrollViewer.IsHorizontalRailEnabled="True">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
+            <GridView.ItemTemplate>
                 <DataTemplate  x:DataType="models:BaseItemDto">
                     <GridViewItem>
                         <RelativePanel >
-                            <Image x:Name="CoverImage" Height="200px" Width="300px" Source="{x:Bind getImageUrl() }"></Image>
+                            <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="200px" Width="300px" Source="{x:Bind getImageUrl() }"></Image>
                             <TextBlock RelativePanel.Below="CoverImage" RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
-                            <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="24"/>
+                                <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="24"/>
                             </TextBlock>
                         </RelativePanel>
                     </GridViewItem>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </GridView.ItemTemplate>
+        </GridView>
     </StackPanel>
 </Page>

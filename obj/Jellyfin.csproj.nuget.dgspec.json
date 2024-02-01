@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj": {}
+    "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj": {
+    "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj",
+        "projectUniqueName": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj",
         "projectName": "Jellyfin",
-        "projectPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\Jellyfin.csproj",
+        "projectPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\Jellyfin.csproj",
         "packagesPath": "C:\\Users\\Gergo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin\\obj\\",
+        "outputPath": "C:\\Users\\Gergo\\Documents\\VisualStudioProjects\\Jellyfin client UWP\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -24,20 +24,20 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "uap10.0.14393"
+          "uap10.0.15063"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "uap10.0.14393": {
+          "uap10.0.15063": {
             "projectReferences": {}
           }
         }
       },
       "frameworks": {
-        "uap10.0.14393": {
+        "uap10.0.15063": {
           "dependencies": {
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",

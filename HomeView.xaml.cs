@@ -15,6 +15,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Protection.PlayReady;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,8 +44,39 @@ namespace Jellyfin
 
             this.User = JsonConvert.DeserializeObject<UserDto>(localSettings.Values["User"] as string);
             this.SessionInfo = JsonConvert.DeserializeObject<SessionInfo>(localSettings.Values["Session"] as string);
+            SystemNavigationManager.GetForCurrentView().BackRequested +=
+        SystemNavigationManager_BackRequested;
             UsernameTextbox.Text = User.Name;
             getUserViews();
+        }
+
+        private void SystemNavigationManager_BackRequested(
+            object sender,
+            BackRequestedEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = this.BackRequested();
+            }
+        }
+
+        public Frame AppFrame { get { return this.Frame; } }
+
+        private bool BackRequested()
+        {
+            // Get a hold of the current frame so that we can inspect the app back stack
+            if (this.AppFrame == null)
+                return false;
+
+            // Check to see if this is the top-most page on the app back stack
+            if (this.AppFrame.CanGoBack)
+            {
+                // If not, set the event to handled and go back to the previous page in the
+                // app.
+                this.AppFrame.GoBack();
+                return true;
+            }
+            return false;
         }
         public async void getUserViews()
         {
@@ -85,10 +117,10 @@ namespace Jellyfin
         }
 
 
-        private void MediaLibraries_SelectionChanged(object sender, ItemClickEventArgs e)
+        private void MediaLibraries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(MediaItemsBrowser), e.ClickedItem);
+            Frame.Navigate(typeof(MediaItemsBrowser), (sender as GridView).SelectedValue);
 
         }
+        }
     }
-}

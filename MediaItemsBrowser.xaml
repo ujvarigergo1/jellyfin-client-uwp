@@ -6,25 +6,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="{ThemeResource AppDefaultBackgroundColor}"
     xmlns:models="using:Jellyfin.Models">
 
-    <Grid HorizontalAlignment="Center">
-        <GridView ItemClick="MediaLibrary_SelectionChanged" SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=UserMedia}" BorderThickness="4,4,4,4">
+    <RelativePanel>
+        <GridView RelativePanel.AlignHorizontalCenterWithPanel="True" SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=UserMedia}" BorderThickness="4,4,4,4">
             <GridView.ItemTemplate>
                 <DataTemplate  x:DataType="models:BaseItemDto">
-                    <GridViewItem>
-                        <RelativePanel >
-                            <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="350px" Width="200px" Source="{x:Bind getImageUrl() }"></Image>
-                            <TextBlock HorizontalTextAlignment="Center" RelativePanel.Below="CoverImage"  RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
-                            <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="15"/>
+                    <GridViewItem Height="auto" >
+                        <RelativePanel Height="auto" >
+                            <Image Margin="10,10,10,10" RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="304px" Width="213px" Source="{x:Bind getImageUrl() }"></Image>
+                            <TextBlock TextWrapping="Wrap" HorizontalTextAlignment="Center" RelativePanel.Below="CoverImage"  RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
+                                <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="18"/>
                                 <LineBreak/>
-                            <Run Text="{x:Bind Path=ProductionYear}" Foreground="Gray" FontSize="12" FontFamily="Arial" />
+                                <Run Text="{x:Bind Path=ProductionYear}" Foreground="Gray" FontSize="14" FontFamily="Arial" />
+                                <LineBreak/>
                             </TextBlock>
                         </RelativePanel>
                     </GridViewItem>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-    </Grid>
+    </RelativePanel>
 </Page>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -786,18 +787,42 @@ namespace Jellyfin.Models
         public BaseItemDto CurrentProgram { get; set; }
         public ImageSource getImageUrl()
         {
+            return this.getImageUrl(ImageType.Primary);
+        }
+        public ImageSource getImageUrl(ImageType imageType)
+        {
             string url = "http://localhost";
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            if (this.Type == BaseItemKind.CollectionFolder)
+            if ((this.ImageTags != null && this.ImageTags.Count() > 0 && this.ImageTags.ContainsKey(imageType)) || (imageType == ImageType.Backdrop && this.BackdropImageTags.Count() > 0))
             {
-                url = localSettings.Values["Address"].ToString() + "/Items/" + this.DisplayPreferencesId + "/Images/" + ImageType.Primary;
-            }
-            else if(Type == BaseItemKind.Movie || Type == BaseItemKind.Video || Type == BaseItemKind.MusicVideo || Type == BaseItemKind.Series)
-            {
-                url = localSettings.Values["Address"].ToString() + "/Items/" + this.Id + "/Images/" + ImageType.Primary + "?tag=" + this.ImageTags[ImageType.Primary];
+                if (this.Type == BaseItemKind.CollectionFolder)
+                {
+                    url = localSettings.Values["Address"].ToString() + "/Items/" + this.DisplayPreferencesId + "/Images/" + imageType;
+                }
+                else if (Type == BaseItemKind.Movie || Type == BaseItemKind.Video || Type == BaseItemKind.MusicVideo || Type == BaseItemKind.Series || Type == BaseItemKind.Season || Type == BaseItemKind.Episode || Type == BaseItemKind.BoxSet)
+                {
+                    if (imageType == ImageType.Backdrop)
+                    {
+                        url = localSettings.Values["Address"].ToString() + "/Items/" + this.Id + "/Images/" + imageType + "?tag=" + (this.BackdropImageTags.Count()>0? this.BackdropImageTags[0] : this.ImageTags[imageType]);
+                    }
+                    else
+                    {
+                        url = localSettings.Values["Address"].ToString() + "/Items/" + this.Id + "/Images/" + imageType + "?tag=" + this.ImageTags[imageType];
+                    }
+
+                    if (imageType == ImageType.Primary)
+                    {
+                        url += "&fillHeight=304&fillWidth=213&quality=96";
+                    }
+                }
             }
 
             return new BitmapImage(new Uri(url, UriKind.Absolute));
+        }
+        public Visibility HasChildren()
+        {   
+            if(this.ChildCount == null) return Visibility.Collapsed; ;
+            return  (this.ChildCount > 0) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
