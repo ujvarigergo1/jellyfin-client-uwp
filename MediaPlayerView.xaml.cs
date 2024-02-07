@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
@@ -54,8 +55,16 @@ namespace Jellyfin
             this.MediaLibrary = (BaseItemDto)e.Parameter;
             mediaPlayer = new MediaPlayer();
             MainMediaPlayer.SetMediaPlayer(mediaPlayer);
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri((localSettings.Values["Address"] as string) + "/Videos/" + this.MediaLibrary.Id + "/stream?container=mkv&static=true&subtitleMethod=1"));
-            mediaPlayer.Play();
+            var videoSource = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri((localSettings.Values["Address"] as string) + "/Videos/" + this.MediaLibrary.Id + "/stream?container=mkv&static=true&subtitleMethod=1")));
+            mediaPlayer.Source = videoSource;
+
+            mediaPlayer.CommandManager.IsEnabled = true;
+            MediaItemDisplayProperties props = videoSource.GetDisplayProperties();
+            props.Type = Windows.Media.MediaPlaybackType.Video;
+            props.VideoProperties.Title = "Video title";
+            props.VideoProperties.Subtitle = "Video subtitle";
+            props.VideoProperties.Genres.Add("Documentary");
+            videoSource.ApplyDisplayProperties(props);
             mediaPlayer.CommandManager.PauseBehavior.EnablingRule = MediaCommandEnablingRule.Always;
             
             mediaPlayer.CommandManager.RewindBehavior.EnablingRule = MediaCommandEnablingRule.Always;
@@ -63,6 +72,7 @@ namespace Jellyfin
             //mediaPlayer.CommandManager.PositionReceived += (MediaPlaybackCommandManager sender, MediaPlaybackCommandManagerPositionReceivedEventArgs args) => { MainMediaPlayer.MediaPlayer.CanSeek };
             mediaPlayer.CommandManager.PauseReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPauseReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Pause(); };
             mediaPlayer.CommandManager.PlayReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPlayReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Play(); };
+            mediaPlayer.Play();
         }
 
 
@@ -75,7 +85,8 @@ namespace Jellyfin
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
-                var authenticationResponse = await client.PostAsJsonAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Progress",this.playbackProgressInfo);
+                
+                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Progress", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo)));
                 try
                 {
                     authenticationResponse.EnsureSuccessStatusCode();

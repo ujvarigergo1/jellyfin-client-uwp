@@ -27,7 +27,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Jellyfin
+namespace Jellyfin.Views
 {
     public class DiscoveryResponse
     {
@@ -39,7 +39,7 @@ namespace Jellyfin
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class ServerSelectionView : Page
     {
         
         public ObservableCollection<DiscoveryResponse> discoveryResult { get; }
@@ -48,7 +48,7 @@ namespace Jellyfin
         DatagramSocket listenersocket = null;
         const string port = "7359";
         public Frame AppFrame { get { return this.Frame; } }
-        public MainPage()
+        public ServerSelectionView()
         {
             
             this.InitializeComponent();

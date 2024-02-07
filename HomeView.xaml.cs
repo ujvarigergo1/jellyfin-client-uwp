@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Jellyfin.Views;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -109,7 +110,7 @@ namespace Jellyfin
             localSettings.Values.Remove("Session");
             localSettings.Values.Remove("ServerId");
             localSettings.Values.Remove("AccessToken");
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(ServerSelectionView));
         }
         public string getpictureUrl()
         {

@@ -6,10 +6,10 @@
     <RemoteDebugMachine>XBOX</RemoteDebugMachine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
     <RemoteDebugMachine>XBOX</RemoteDebugMachine>
     <DeploymentType>CopyToDevice</DeploymentType>
-    <CreateCleanLayout>false</CreateCleanLayout>
+    <CreateCleanLayout>true</CreateCleanLayout>
     <AuthenticationMode>Universal</AuthenticationMode>
   </PropertyGroup>
   <PropertyGroup>
@@ -21,5 +21,13 @@
     <AppIconSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</AppIconSource>
     <SplashScreenSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</SplashScreenSource>
     <PackageLogoSource>C:\Users\Gergo\Downloads\jellyfin-ux-master\jellyfin-ux-master\branding\tizen\icon.png</PackageLogoSource>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <UapAppxPackageBuildMode>StoreAndSideload</UapAppxPackageBuildMode>
+    <AppxBuildConfigurationSelection>x86|x64|arm</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <DeviceId>30f105c9-681e-420b-a277-7c086ead8a4e</DeviceId>
+    <UseEmulator>true</UseEmulator>
   </PropertyGroup>
 </Project>

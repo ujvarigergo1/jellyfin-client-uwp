@@ -1,0 +1,6 @@
+MainPackage=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\ARM\Release\Upload\Jellyfin_1.0.4.0_ARM.appx
+SymbolPackage=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\ARM\Release\Upload\Jellyfin_1.0.4.0\Jellyfin_1.0.4.0_ARM.appxsym
+ResourcePack=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\ARM\Release\Upload\Jellyfin_1.0.4.0_scale-100.appx
+ResourcePack=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\ARM\Release\Upload\Jellyfin_1.0.4.0_scale-125.appx
+ResourcePack=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\ARM\Release\Upload\Jellyfin_1.0.4.0_scale-150.appx
+ResourcePack=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\ARM\Release\Upload\Jellyfin_1.0.4.0_scale-400.appx

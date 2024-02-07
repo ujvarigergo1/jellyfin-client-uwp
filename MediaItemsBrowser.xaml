@@ -16,7 +16,7 @@
                     <GridViewItem Height="auto" >
                         <RelativePanel Height="auto" >
                             <Image Margin="10,10,10,10" RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="304px" Width="213px" Source="{x:Bind getImageUrl() }"></Image>
-                            <TextBlock TextWrapping="Wrap" HorizontalTextAlignment="Center" RelativePanel.Below="CoverImage"  RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
+                            <TextBlock TextWrapping="Wrap"  RelativePanel.Below="CoverImage"  RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
                                 <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="18"/>
                                 <LineBreak/>
                                 <Run Text="{x:Bind Path=ProductionYear}" Foreground="Gray" FontSize="14" FontFamily="Arial" />

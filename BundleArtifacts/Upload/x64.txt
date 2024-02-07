@@ -1,0 +1,2 @@
+MainPackage=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Release\Upload\Jellyfin_1.0.4.0_x64.appx
+SymbolPackage=C:\Users\Gergo\Documents\VisualStudioProjects\Jellyfin client UWP\bin\x64\Release\Upload\Jellyfin_1.0.4.0\Jellyfin_1.0.4.0_x64.appxsym

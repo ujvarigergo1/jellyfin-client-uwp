@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="a6dd4d33-820a-4a03-8946-9250aedded90"
-    Publisher="CN=Gergo"
-    Version="1.0.0.0" />
+    Name="11895Gergo130.248456CCBA9DD"
+    Publisher="CN=Gergo130"
+    Version="1.0.4.0" />
 
-  <mp:PhoneIdentity PhoneProductId="a6dd4d33-820a-4a03-8946-9250aedded90" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="5d674499-b725-40fb-936e-3fec5a60ad55" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Jellyfin</DisplayName>
-    <PublisherDisplayName>Gergo</PublisherDisplayName>
+    <DisplayName>Jellyfin Lite</DisplayName>
+    <PublisherDisplayName>Gergo130</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Jellyfin.App">
       <uap:VisualElements
-        DisplayName="Jellyfin"
+        DisplayName="Jellyfin Lite"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Jellyfin"
