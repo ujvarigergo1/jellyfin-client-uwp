@@ -10,7 +10,8 @@
     xmlns:models="using:Jellyfin.Models">
 
     <RelativePanel>
-        <GridView RelativePanel.AlignHorizontalCenterWithPanel="True" SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=UserMedia}" BorderThickness="4,4,4,4">
+        <local:JellyfinAppBar x:Name="AppBar" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" ShowBackArrow="True"></local:JellyfinAppBar>
+        <GridView RelativePanel.Below="AppBar" RelativePanel.AlignHorizontalCenterWithPanel="True" SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=UserMedia}" BorderThickness="4,4,4,4">
             <GridView.ItemTemplate>
                 <DataTemplate  x:DataType="models:BaseItemDto">
                     <GridViewItem Height="auto" >

@@ -47,8 +47,10 @@ namespace Jellyfin
             this.SessionInfo = JsonConvert.DeserializeObject<SessionInfo>(localSettings.Values["Session"] as string);
             SystemNavigationManager.GetForCurrentView().BackRequested +=
         SystemNavigationManager_BackRequested;
-            UsernameTextbox.Text = User.Name;
+            
             getUserViews();
+
+            Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(true);
         }
 
         private void SystemNavigationManager_BackRequested(
@@ -95,6 +97,7 @@ namespace Jellyfin
                     {
                         this.ViewList.Add(item);
                     };
+                    MediaLibraryListView.ContainerContentChanging += focusListItem;
                 }
                 catch (Exception ex)
                 {
@@ -103,7 +106,14 @@ namespace Jellyfin
                 }
             }
         }
-
+        public void focusListItem(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.ItemContainer is GridViewItem)
+            {
+                args.ItemContainer.Focus(FocusState.Programmatic);
+                this.MediaLibraryListView.ContainerContentChanging -= focusListItem;
+            }
+        }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             localSettings.Values.Remove("User");
@@ -112,10 +122,6 @@ namespace Jellyfin
             localSettings.Values.Remove("AccessToken");
             Frame.Navigate(typeof(ServerSelectionView));
         }
-        public string getpictureUrl()
-        {
-            return "";
-        }
 
 
         private void MediaLibraries_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -123,5 +129,10 @@ namespace Jellyfin
             Frame.Navigate(typeof(MediaItemsBrowser), (sender as GridView).SelectedValue);
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MediaLibraryListView.ContainerFromIndex(0);
         }
+    }
     }

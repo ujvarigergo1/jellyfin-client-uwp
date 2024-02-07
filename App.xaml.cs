@@ -34,7 +34,6 @@ namespace Jellyfin
         {
             this.InitializeComponent();
             this.RequiresPointerMode = Windows.UI.Xaml.ApplicationRequiresPointerMode.WhenRequested;
-            Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(true);
             this.Suspending += OnSuspending;
         }
 

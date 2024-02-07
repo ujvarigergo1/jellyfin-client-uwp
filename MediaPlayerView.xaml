@@ -8,11 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <MediaPlayerElement AutoPlay="True" x:Name="MainMediaPlayer" AreTransportControlsEnabled="True">
+    <RelativePanel PointerMoved="RelativePanel_PointerMoved" >
+        <MediaPlayerElement KeyDown="MainMediaPlayer_KeyDown" AutoPlay="True" x:Name="MainMediaPlayer" AreTransportControlsEnabled="True">
 
             <MediaPlayerElement.TransportControls>
                 <MediaTransportControls 
+                    
                     IsNextTrackButtonVisible="True"
                     IsSeekEnabled="True"
                     IsCompact="False"
@@ -27,5 +28,8 @@
                     IsSkipForwardEnabled="True" />
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
-    </Grid>
+        <Button x:Name="BackButton" Click="BackButton_Click" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Background="Transparent" BorderThickness="0" Margin="20,20,0,0">
+            <SymbolIcon Symbol="Back"></SymbolIcon>
+        </Button>
+    </RelativePanel>
 </Page>

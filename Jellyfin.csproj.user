@@ -9,7 +9,7 @@
     <RemoteDebugEnabled>false</RemoteDebugEnabled>
     <RemoteDebugMachine>XBOX</RemoteDebugMachine>
     <DeploymentType>CopyToDevice</DeploymentType>
-    <CreateCleanLayout>true</CreateCleanLayout>
+    <CreateCleanLayout>false</CreateCleanLayout>
     <AuthenticationMode>Universal</AuthenticationMode>
   </PropertyGroup>
   <PropertyGroup>

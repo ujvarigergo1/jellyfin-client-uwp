@@ -9,33 +9,35 @@
     Background="{ThemeResource AppDefaultBackgroundColor}">
 
     <StackPanel>
-        <Image Width="200px" Source="/Assets/logo_fg.png" HorizontalAlignment="Left" Height="85"/>
+        <Image Width="500px" Source="/Assets/logo_fg.png" HorizontalAlignment="Left" Height="150"/>
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <StackPanel  Grid.Column="0">
-                <TextBlock Foreground="White" Text="Welcome on Jellyfin!" FontFamily="Leelawadee UI" FontSize="20" FontWeight="Bold" Margin="10,0,0,0" />
-                <TextBlock Foreground="White" Text="Connect to your server to start." FontFamily="Leelawadee UI" FontSize="14" Margin="10,0,10,0" />
-                <TextBox Width="328"/>
-                <Button BorderBrush="{ThemeResource AppDefaultBorderColor}" Foreground="{ThemeResource AppDefaultCardColor}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Welcome on Jellyfin!" FontFamily="Leelawadee UI" FontSize="30" FontWeight="Bold" />
+                <TextBlock Foreground="White" HorizontalAlignment="Center" Text="Connect to your server to start." FontFamily="Leelawadee UI" FontSize="14" Margin="0,0,0,15" />
+                <TextBox KeyDown="ServeraddressInput_KeyDown" x:Name="ServeraddressInput" Width="328"/>
+                <Button Click="AddServerButton_Click" BorderBrush="{ThemeResource AppDefaultBorderColor}" Foreground="{ThemeResource AppDefaultCardColor}" HorizontalAlignment="Center" VerticalAlignment="Top" AutomationProperties.ItemType="">
                     <TextBlock Text="Add server" FontSize="24" FontFamily="Arial Rounded MT Bold" Foreground="White"/>
                 </Button>
+                <TextBlock Foreground="Red" Visibility="Collapsed" x:Name="ErrorMessage" HorizontalAlignment="Center" Text="Failed to connect to server." FontFamily="Leelawadee UI" FontSize="14" Margin="10,0,10,0" />
             </StackPanel>
             <StackPanel BorderBrush="{ThemeResource AppDefaultBorderColor}" Grid.Column="1">
-                <Border x:Name="Border" BorderBrush="Transparent"  BorderThickness="2">
-                    <ListView SelectionChanged="DiscoveredList_SelectionChanged" Background="{ThemeResource AppDefaultCardColor}" ItemsSource="{x:Bind Path=discoveryResult}" BorderThickness="4,4,4,4">
-                        <ListView.ItemTemplate>
-                            <DataTemplate  x:DataType="local:DiscoveryResponse">
-                                <TextBlock>
+
+                <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Discovered Servers:" FontFamily="Leelawadee UI" FontSize="22" FontWeight="Bold" Margin="0,0,0,15" />
+                <TextBlock HorizontalAlignment="Center" Foreground="Gray" Text="No servers found" FontFamily="Leelawadee UI" FontSize="19" Margin="10,0,0,0" FontStyle="Italic" />
+                <ListView SelectionChanged="DiscoveredList_SelectionChanged" Background="{ThemeResource AppDefaultCardColor}" ItemsSource="{x:Bind Path=discoveryResult}" BorderThickness="4,4,4,4">
+                    <ListView.ItemTemplate>
+                        <DataTemplate  x:DataType="local:DiscoveryResponse">
+                            <TextBlock FontStyle="Italic">
                                     <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="24"/>
                                     <LineBreak/>
                                     <Run Text="{x:Bind Path=Address}" Foreground="White" FontFamily="Times new roman" FontSize="18" FontStyle="Italic"/></TextBlock>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
 
         </Grid>

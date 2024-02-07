@@ -1,4 +1,6 @@
-﻿using Jellyfin.Services;
+﻿using Jellyfin.Models;
+using Jellyfin.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +8,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Data.Json;
@@ -55,6 +60,8 @@ namespace Jellyfin.Views
             SystemNavigationManager.GetForCurrentView().BackRequested +=
                 SystemNavigationManager_BackRequested;
             this.StartServerInitialization();
+
+            Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(false);
         }
 
         private void SystemNavigationManager_BackRequested(
@@ -143,6 +150,48 @@ namespace Jellyfin.Views
             localSettings.Values["Address"] = ((DiscoveryResponse)(sender as ListView).SelectedValue).Address;
             Frame.Navigate(typeof(UserLogin));
         }
+        private async void CheckServerAddress()
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\"");
+                
+                
+                try
+                {
+                    var response = await client.GetAsync(ServeraddressInput.Text + "/System/Info/Public");
+                    response.EnsureSuccessStatusCode();
+                    var stringResponse = await response.Content.ReadAsStringAsync();
+                    localSettings.Values["Address"] = ServeraddressInput.Text;
+                    Frame.Navigate(typeof(UserLogin));
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    ErrorMessage.Visibility = Visibility.Visible;
+                }
+            }
+        }
+        private async void AddServerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ServeraddressInput.Text.StartsWith("http://") && !ServeraddressInput.Text.StartsWith("https://"))
+            {
+                ServeraddressInput.Text = "http://" + ServeraddressInput.Text;
+            }
+            CheckServerAddress();
+        }
 
+        private void ServeraddressInput_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                if (!ServeraddressInput.Text.StartsWith("http://") && !ServeraddressInput.Text.StartsWith("https://"))
+                {
+                    ServeraddressInput.Text = "http://" + ServeraddressInput.Text;
+                }
+                CheckServerAddress();
+            }
+        }
     }
 }

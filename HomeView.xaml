@@ -8,15 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource AppDefaultBackgroundColor}"
     xmlns:models="using:Jellyfin.Models">
-
     <StackPanel>
-        <TextBlock FontSize="50" x:Name="UsernameTextbox" Foreground="White" Text="user"></TextBlock>
-        <Button Foreground="White" Click="Logout_Click"> Logout</Button>
-        <GridView SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ViewList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
+        <local:JellyfinAppBar ShowBackArrow="False"></local:JellyfinAppBar>
+        <TextBlock Foreground="White" FontFamily="Leelawadee UI" FontSize="22" FontWeight="Bold" Margin="20,20,0,15" >Libraries</TextBlock>
+        <GridView x:Name="MediaLibraryListView"  SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ViewList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
           ScrollViewer.IsHorizontalRailEnabled="True">
             <GridView.ItemTemplate>
                 <DataTemplate  x:DataType="models:BaseItemDto">
-                    <GridViewItem>
+                    <GridViewItem x:Name="LibraryItem">
                         <RelativePanel >
                             <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="200px" Width="300px" Source="{x:Bind getImageUrl() }"></Image>
                             <TextBlock RelativePanel.Below="CoverImage" RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">

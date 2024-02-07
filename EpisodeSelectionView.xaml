@@ -14,8 +14,9 @@
         <RelativePanel.Background>
             <ImageBrush Stretch="UniformToFill" Opacity="60" ImageSource="{x:Bind MediaLibrary.getImageUrl(models:ImageType.Backdrop)}"/>
         </RelativePanel.Background>
- 
-        <Grid RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" x:Name="titleGrid">
+
+        <local:JellyfinAppBar x:Name="AppBar" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" ShowBackArrow="True"></local:JellyfinAppBar>
+        <Grid RelativePanel.Below="AppBar" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" x:Name="titleGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="4*"/>

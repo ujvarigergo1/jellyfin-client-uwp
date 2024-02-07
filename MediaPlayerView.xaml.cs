@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Foundation;
@@ -18,6 +19,7 @@ using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,6 +42,8 @@ namespace Jellyfin
         UserDto User;
         SessionInfo SessionInfo;
         MediaPlayer mediaPlayer;
+        Task timer;
+        CancellationTokenSource cancellationToken;
         PlaybackProgressInfo playbackProgressInfo = new PlaybackProgressInfo();
         
         public MediaPlayerView()
@@ -112,6 +116,53 @@ namespace Jellyfin
             MainMediaPlayer.MediaPlayer.Pause();
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame navigationFrame = Window.Current.Content as Frame;
+            if (navigationFrame.CanGoBack)
+            {
+                navigationFrame.GoBack();
+            }
+        }
+        private async void startHideControlsTimer()
+        {
+            try
+            {
+                if (timer != null && timer.Status != TaskStatus.RanToCompletion)
+                {
+                    cancellationToken.Cancel();
+                }
+                BackButton.Visibility = Visibility.Visible;
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    Windows.UI.Xaml.Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 0);
+                });
+                cancellationToken = new CancellationTokenSource();
+                timer = Task.Run(async () => { await Task.Delay(4000); this.cancellationToken.Token.ThrowIfCancellationRequested(); }, cancellationToken.Token);
+                await timer;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            if (timer != null && timer.Status == TaskStatus.RanToCompletion)
+            {
+                BackButton.Visibility = Visibility.Collapsed;
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    Windows.UI.Xaml.Window.Current.CoreWindow.PointerCursor = null;
+                });
+            }
+        }
+        private async void RelativePanel_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            startHideControlsTimer();
+        }
+
+        private void MainMediaPlayer_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            startHideControlsTimer();
+        }
     }
     }
 
