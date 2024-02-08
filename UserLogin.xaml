@@ -18,9 +18,9 @@
         </Grid>
         
         <TextBlock Foreground="White" Margin="20,0,0,0">Username</TextBlock>
-        <TextBox Foreground="White" Background="{ThemeResource AppDefaultCardColor}" BorderThickness="0"  x:DefaultBindMode="TwoWay" Text="{x:Bind Username}" Height="30px" Margin="20,0,20,10" BorderBrush="#FCFFFFFF" RequestedTheme="Light"></TextBox>
+        <TextBox x:Name="UsernameBox" KeyDown="UsernameBox_KeyDown" Foreground="White" Background="{ThemeResource AppDefaultCardColor}" BorderThickness="0"  x:DefaultBindMode="TwoWay" Text="{x:Bind Username}" Height="30px" Margin="20,0,20,10" BorderBrush="#FCFFFFFF" RequestedTheme="Light"></TextBox>
         <TextBlock Foreground="White" Margin="20,0,0,0">Password</TextBlock>
-        <TextBox Foreground="White" Background="{ThemeResource AppDefaultCardColor}" BorderThickness="0" x:DefaultBindMode="TwoWay" Text="{x:Bind Password}" Height="30px" Margin="20,0,20,10" InputScope="Password" RequestedTheme="Light"></TextBox>
+        <PasswordBox x:Name="PasswordInputField" KeyDown="PasswordBox_KeyDown" Foreground="White" Background="{ThemeResource AppDefaultCardColor}" BorderThickness="0" x:DefaultBindMode="TwoWay" Password="{x:Bind Password}" Height="30px" Margin="20,0,20,10"  RequestedTheme="Light"></PasswordBox>
         <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

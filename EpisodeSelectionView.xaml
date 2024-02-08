@@ -45,7 +45,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="SeasonListViewItem" Background="Transparent" Grid.Row="0"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Column="0" IsItemClickEnabled="True" SingleSelectionFollowsFocus="False" SelectionChanged="Seasons_SelectionChanged" ItemsSource="{x:Bind Path=seasonItems}" BorderThickness="4,4,4,4" Margin="20,30,0,0" Grid.ColumnSpan="2">
+            <ListView x:Name="SeasonListViewItem" Background="Transparent" Grid.Row="0"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Column="0" IsItemClickEnabled="True" SingleSelectionFollowsFocus="True" SelectionChanged="Seasons_SelectionChanged" ItemsSource="{x:Bind Path=seasonItems}" BorderThickness="4,4,4,4" Margin="20,30,0,0" Grid.ColumnSpan="2">
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="models:BaseItemDto">
                         <GridViewItem GotFocus="SeasonListItem_GotFocus" Visibility="{x:Bind HasChildren() }">

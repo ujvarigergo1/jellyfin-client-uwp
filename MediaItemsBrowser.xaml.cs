@@ -45,7 +45,7 @@ namespace Jellyfin
 
             this.User = JsonConvert.DeserializeObject<UserDto>(localSettings.Values["User"] as string);
             this.SessionInfo = JsonConvert.DeserializeObject<SessionInfo>(localSettings.Values["Session"] as string);
-
+            Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(true);
 
         }
 

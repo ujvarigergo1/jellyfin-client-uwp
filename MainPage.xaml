@@ -27,7 +27,7 @@
             <StackPanel BorderBrush="{ThemeResource AppDefaultBorderColor}" Grid.Column="1">
 
                 <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Discovered Servers:" FontFamily="Leelawadee UI" FontSize="22" FontWeight="Bold" Margin="0,0,0,15" />
-                <TextBlock HorizontalAlignment="Center" Foreground="Gray" Text="No servers found" FontFamily="Leelawadee UI" FontSize="19" Margin="10,0,0,0" FontStyle="Italic" />
+                <TextBlock x:Name="NoServersFoundLabel" HorizontalAlignment="Center" Foreground="Gray" Text="No servers found" FontFamily="Leelawadee UI" FontSize="19" Margin="10,0,0,0" FontStyle="Italic" />
                 <ListView SelectionChanged="DiscoveredList_SelectionChanged" Background="{ThemeResource AppDefaultCardColor}" ItemsSource="{x:Bind Path=discoveryResult}" BorderThickness="4,4,4,4">
                     <ListView.ItemTemplate>
                         <DataTemplate  x:DataType="local:DiscoveryResponse">

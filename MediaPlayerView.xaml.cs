@@ -1,5 +1,6 @@
 ﻿using Jellyfin.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,7 +46,9 @@ namespace Jellyfin
         Task timer;
         CancellationTokenSource cancellationToken;
         PlaybackProgressInfo playbackProgressInfo = new PlaybackProgressInfo();
-        
+        string playbackSessionId;
+        long token;
+        bool reportingActive = false;
         public MediaPlayerView()
         {
             this.InitializeComponent();
@@ -53,10 +56,11 @@ namespace Jellyfin
             this.SessionInfo = JsonConvert.DeserializeObject<SessionInfo>(localSettings.Values["Session"] as string);
             
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             this.MediaLibrary = (BaseItemDto)e.Parameter;
+            await getPlaybackInfo();
             mediaPlayer = new MediaPlayer();
             MainMediaPlayer.SetMediaPlayer(mediaPlayer);
             var videoSource = new MediaPlaybackItem(MediaSource.CreateFromUri(new Uri((localSettings.Values["Address"] as string) + "/Videos/" + this.MediaLibrary.Id + "/stream?container=mkv&static=true&subtitleMethod=1")));
@@ -74,23 +78,89 @@ namespace Jellyfin
             mediaPlayer.CommandManager.RewindBehavior.EnablingRule = MediaCommandEnablingRule.Always;
             Debug.WriteLine(MainMediaPlayer.MediaPlayer.PlaybackSession.CanSeek.ToString());
             //mediaPlayer.CommandManager.PositionReceived += (MediaPlaybackCommandManager sender, MediaPlaybackCommandManagerPositionReceivedEventArgs args) => { MainMediaPlayer.MediaPlayer.CanSeek };
-            mediaPlayer.CommandManager.PauseReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPauseReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Pause(); };
-            mediaPlayer.CommandManager.PlayReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPlayReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Play(); };
+            mediaPlayer.CommandManager.PauseReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPauseReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Pause();playbackProgressInfo.IsPaused = true; };
+            mediaPlayer.CommandManager.PlayReceived += (MediaPlaybackCommandManager cm, MediaPlaybackCommandManagerPlayReceivedEventArgs pauseEvent) => { MainMediaPlayer.MediaPlayer.Play(); playbackProgressInfo.IsPaused = false; };
             mediaPlayer.Play();
+            Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(true);
+            startHideControlsTimer();
+            Frame navigationFrame = Window.Current.Content as Frame;
+            token = navigationFrame.RegisterPropertyChangedCallback(
+               Frame.ContentProperty,
+               ContentChanged);
+            await sendPlayBackStart();
+            repeatPlaybackReporting();
         }
-
-
-        public async void sendPlayBackProgressInfo()
+        private async void ContentChanged(DependencyObject sender, DependencyProperty dp)
         {
-            playbackProgressInfo.ItemId = MediaLibrary.Id;
-            playbackProgressInfo.MediaSourceId = MediaLibrary.Id.ToString();
+            await sendPlayBackStopped();
+            Frame navigationFrame = Window.Current.Content as Frame;
+            //do something when Content changes
+            navigationFrame.UnregisterPropertyChangedCallback(Frame.ContentProperty, token);
+            try
+            {
+                if (timer != null && timer.Status != TaskStatus.RanToCompletion)
+                {
+                    cancellationToken.Cancel();
+                }
+                reportingActive = false;
+                MainMediaPlayer.MediaPlayer.Pause();
+                MainMediaPlayer.MediaPlayer.Source = null;
+                Windows.UI.Xaml.Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 0);
+            } catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        private async void repeatPlaybackReporting()
+        {
+            reportingActive = true;
+            while (reportingActive) {
+                sendPlayBackProgressInfo();
+                await Task.Delay(5000);
+            }
+        }
+        public async Task getPlaybackInfo()
+        {
             using (var client = new HttpClient())
             {
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
-                
-                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Progress", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo)));
+                string parentId;
+                if (this.MediaLibrary.DisplayPreferencesId != null) { parentId = this.MediaLibrary.DisplayPreferencesId; } else { parentId = this.MediaLibrary.Id.ToString(); }
+                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Items/" + parentId + "/PlaybackInfo?UserId=" + this.User.Id);
+                try
+                {
+                    authenticationResponse.EnsureSuccessStatusCode();
+                    var parsedResponse= JsonConvert.DeserializeObject<PlaybackInfoResponse>(await authenticationResponse.Content.ReadAsStringAsync());
+                    this.playbackSessionId = parsedResponse.PlaySessionId;
+                    this.playbackProgressInfo.PlaySessionId = parsedResponse.PlaySessionId;
+                    playbackProgressInfo.PlaybackRate = 1;
+                    playbackProgressInfo.CanSeek = true;
+                    playbackProgressInfo.PlayMethod = "Transcode";
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    await Task.Delay(1000);
+                }
+            }
+        }
+
+        public async Task sendPlayBackStart()
+        {
+            playbackProgressInfo.ItemId = MediaLibrary.Id;
+            playbackProgressInfo.MediaSourceId = MediaLibrary.Id.ToString();
+            playbackProgressInfo.PositionTicks = 0;
+            playbackProgressInfo.PlaybackStartTimeTicks = ((long)MainMediaPlayer.MediaPlayer.PlaybackSession.NaturalDuration.TotalMilliseconds);
+            playbackProgressInfo.EventName = "timeupdate";
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
+
+                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Playing", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo), System.Text.Encoding.UTF8, "application/json"));
                 try
                 {
                     authenticationResponse.EnsureSuccessStatusCode();
@@ -98,7 +168,54 @@ namespace Jellyfin
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
-                    await Task.Delay(1000);
+                }
+            }
+            return;
+        }
+        public async void sendPlayBackProgressInfo()
+        {
+            playbackProgressInfo.ItemId = MediaLibrary.Id;
+            playbackProgressInfo.MediaSourceId = MediaLibrary.Id.ToString();
+            playbackProgressInfo.PositionTicks = ((long)this.MainMediaPlayer.MediaPlayer.PlaybackSession.Position.TotalMilliseconds)*10000;
+            playbackProgressInfo.PlaybackStartTimeTicks = ((long)MainMediaPlayer.MediaPlayer.PlaybackSession.NaturalDuration.TotalMilliseconds);
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
+
+                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Progress", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo), System.Text.Encoding.UTF8, "application/json"));
+                try
+                {
+                    authenticationResponse.EnsureSuccessStatusCode();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+            return;
+        }
+        public async Task sendPlayBackStopped()
+        {
+            playbackProgressInfo.IsPaused = true;
+            playbackProgressInfo.ItemId = MediaLibrary.Id;
+            playbackProgressInfo.MediaSourceId = MediaLibrary.Id.ToString();
+            playbackProgressInfo.PositionTicks = ((long)this.MainMediaPlayer.MediaPlayer.PlaybackSession.Position.TotalMilliseconds) * 10000;
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
+
+                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Stopped", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo), System.Text.Encoding.UTF8, "application/json"));
+                try
+                {
+                    authenticationResponse.EnsureSuccessStatusCode();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
                 }
             }
             return;

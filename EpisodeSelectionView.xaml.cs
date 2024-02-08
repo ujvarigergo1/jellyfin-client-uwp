@@ -53,6 +53,7 @@ namespace Jellyfin
             base.OnNavigatedTo(e);
             this.MediaLibrary = (BaseItemDto)e.Parameter;
             getSeriesInfo();
+            Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(true);
         }
         public async void getSeriesInfo()
         {

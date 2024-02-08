@@ -13,8 +13,8 @@
             <CommandBar.Content>
                 <AppBarButton Click="BackButton_Click" x:Name="BackButton" Visibility="Collapsed" Icon="Back"></AppBarButton>
             </CommandBar.Content>
-            <AppBarButton>Logout</AppBarButton>
-            <AppBarButton x:Name="UsernameButton">
+            <AppBarButton x:Name="Logoutbutton" Click="Logoutbutton_Click">Logout</AppBarButton>
+            <AppBarButton Click="UsernameButton_Click" x:Name="UsernameButton">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="10,0,0,0" x:Name="UsernameTextBlock"></TextBlock>
                     <SymbolIcon Margin="10,0,10,0" Symbol="Contact"></SymbolIcon>

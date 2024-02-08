@@ -84,7 +84,7 @@ namespace Jellyfin.Models
         /// Gets or sets the play method.
         /// </summary>
         /// <value>The play method.</value>
-        public PlayMethod PlayMethod { get; set; }
+        public string PlayMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the live stream identifier.
@@ -97,6 +97,7 @@ namespace Jellyfin.Models
         /// </summary>
         /// <value>The play session identifier.</value>
         public string PlaySessionId { get; set; }
+        public int PlaybackRate { get; set; }
 
         /// <summary>
         /// Gets or sets the repeat mode.
@@ -107,5 +108,6 @@ namespace Jellyfin.Models
         public QueueItem[] NowPlayingQueue { get; set; }
 
         public string PlaylistItemId { get; set; }
+        public string EventName { get; set; }
     }
 }

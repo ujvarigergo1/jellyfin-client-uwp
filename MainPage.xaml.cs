@@ -18,6 +18,7 @@ using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking;
+using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -61,6 +62,15 @@ namespace Jellyfin.Views
                 SystemNavigationManager_BackRequested;
             this.StartServerInitialization();
 
+            var hostnames = NetworkInformation.GetHostNames();
+            if (hostnames.Count() > 0 && !hostnames[0].ToString().Contains("192"))
+            {
+                localSettings.Values["DeviceName"] = hostnames[0].ToString();
+            }
+            else
+            {
+                localSettings.Values["DeviceName"] = "XBOX";
+            }
             Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(false);
         }
 
@@ -109,6 +119,7 @@ namespace Jellyfin.Views
            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () => {
                 this.discoveryResult.Add(new DiscoveryResponse() { Address = response["Address"].ToString().Replace("\"",""), Id = response["Id"].ToString().Replace("\"", ""), Name = response["Name"].ToString().Replace("\"", ""), EndpointAddress = response["EndpointAddress"].ToString().Replace("\"", "") });
+                this.NoServersFoundLabel.Visibility = Visibility.Collapsed;
 
             });
             

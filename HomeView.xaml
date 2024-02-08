@@ -17,9 +17,9 @@
                 <DataTemplate  x:DataType="models:BaseItemDto">
                     <GridViewItem x:Name="LibraryItem">
                         <RelativePanel >
-                            <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="200px" Width="300px" Source="{x:Bind getImageUrl() }"></Image>
+                            <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="150px" Width="230px" Source="{x:Bind getImageUrl() }"></Image>
                             <TextBlock RelativePanel.Below="CoverImage" RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
-                                <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="24"/>
+                                <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="16"/>
                             </TextBlock>
                         </RelativePanel>
                     </GridViewItem>

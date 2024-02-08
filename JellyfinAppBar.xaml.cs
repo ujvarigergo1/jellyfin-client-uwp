@@ -1,4 +1,5 @@
 ﻿using Jellyfin.Models;
+using Jellyfin.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,21 @@ namespace Jellyfin
             {
                 navigationFrame.GoBack();
             }
+        }
+
+        private void UsernameButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Logoutbutton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame navigationFrame = Window.Current.Content as Frame;
+            localSettings.Values.Remove("User");
+            localSettings.Values.Remove("Session");
+            localSettings.Values.Remove("ServerId");
+            localSettings.Values.Remove("AccessToken");
+            navigationFrame.Navigate(typeof(ServerSelectionView));
         }
     }
 }
