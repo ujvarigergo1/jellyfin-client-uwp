@@ -12,14 +12,34 @@
         <local:JellyfinAppBar ShowBackArrow="False"></local:JellyfinAppBar>
         <TextBlock Foreground="White" FontFamily="Leelawadee UI" FontSize="22" FontWeight="Bold" Margin="20,20,0,15" >Libraries</TextBlock>
         <GridView x:Name="MediaLibraryListView"  SingleSelectionFollowsFocus="False" SelectionChanged="MediaLibraries_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ViewList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
-          ScrollViewer.IsHorizontalRailEnabled="True">
+  ScrollViewer.IsHorizontalRailEnabled="True">
             <GridView.ItemTemplate>
                 <DataTemplate  x:DataType="models:BaseItemDto">
                     <GridViewItem x:Name="LibraryItem">
                         <RelativePanel >
                             <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Height="150px" Width="230px" Source="{x:Bind getImageUrl() }"></Image>
                             <TextBlock RelativePanel.Below="CoverImage" RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
+                        <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="16"/>
+                            </TextBlock>
+                        </RelativePanel>
+                    </GridViewItem>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <TextBlock x:Name="ContinueWatchingTitle" Visibility="Collapsed" Foreground="White" FontFamily="Leelawadee UI" FontSize="22" FontWeight="Bold" Margin="20,20,0,15" >Continue watching</TextBlock>
+        <GridView x:Name="ResumeMediaView"  SingleSelectionFollowsFocus="False" SelectionChanged="ResumeMedia_SelectionChanged" Background="{ThemeResource AppDefaultBackgroundColor}" ItemsSource="{x:Bind Path=ResumeMediaList}" BorderThickness="4,4,4,4" ScrollViewer.HorizontalScrollMode="Enabled"
+  ScrollViewer.IsHorizontalRailEnabled="True">
+            <GridView.ItemTemplate>
+                <DataTemplate  x:DataType="models:BaseItemDto">
+                    <GridViewItem x:Name="LibraryItem">
+                        <RelativePanel >
+                            <Image RelativePanel.AlignHorizontalCenterWithPanel="True" x:Name="CoverImage" Width="230px" Source="{x:Bind getImageUrl(models:ImageType.Backdrop) }"></Image>
+                            <Rectangle RelativePanel.AlignBottomWith="CoverImage" Width="230" Height="4px" Fill="Gray"/>
+                            <Rectangle RelativePanel.AlignBottomWith="CoverImage" Width="{x:Bind getResumeBarWidth(230)}" Height="4px" Fill="{ThemeResource ListPickerFlyoutPresenterSelectedItemForegroundThemeBrush}"/>
+                            <TextBlock RelativePanel.Below="CoverImage" TextAlignment="Center" RelativePanel.AlignHorizontalCenterWithPanel="True"  HorizontalAlignment="Center">
                                 <Run Text="{x:Bind Path=Name}" Foreground="White" FontFamily="Arial" FontSize="16"/>
+                                <LineBreak/>
+                                <Run Text="{x:Bind Path=ProductionYear}" Foreground="Gray" FontFamily="Arial" FontSize="10"/>
                             </TextBlock>
                         </RelativePanel>
                     </GridViewItem>

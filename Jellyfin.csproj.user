@@ -6,7 +6,7 @@
     <RemoteDebugMachine>XBOX</RemoteDebugMachine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
     <RemoteDebugMachine>XBOX</RemoteDebugMachine>
     <DeploymentType>CopyToDevice</DeploymentType>
     <CreateCleanLayout>false</CreateCleanLayout>

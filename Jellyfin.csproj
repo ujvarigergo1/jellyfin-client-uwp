@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22621.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -183,6 +183,7 @@
     <Compile Include="Models\QuickConnectResult.cs" />
     <Compile Include="Models\RepeatMode.cs" />
     <Compile Include="Models\SessionInfo.cs" />
+    <Compile Include="Models\SessionMessageType.cs" />
     <Compile Include="Models\SubtitleDeliveryMethod.cs" />
     <Compile Include="Models\TranscodeReason.cs" />
     <Compile Include="Models\TransportStreamTimestamp.cs" />

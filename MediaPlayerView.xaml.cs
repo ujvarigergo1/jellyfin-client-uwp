@@ -88,6 +88,10 @@ namespace Jellyfin
                Frame.ContentProperty,
                ContentChanged);
             await sendPlayBackStart();
+            if (this.MediaLibrary.PlayFromResumeState)
+            {
+                MainMediaPlayer.MediaPlayer.PlaybackSession.Position = TimeSpan.FromMilliseconds(this.MediaLibrary.UserData.PlaybackPositionTicks/10000);
+            }
             repeatPlaybackReporting();
         }
         private async void ContentChanged(DependencyObject sender, DependencyProperty dp)

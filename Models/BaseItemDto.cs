@@ -785,6 +785,7 @@ namespace Jellyfin.Models
         /// </summary>
         /// <value>The current program.</value>
         public BaseItemDto CurrentProgram { get; set; }
+        public bool PlayFromResumeState { get; set; }
         public ImageSource getImageUrl()
         {
             return this.getImageUrl(ImageType.Primary);
@@ -823,6 +824,10 @@ namespace Jellyfin.Models
         {   
             if(this.ChildCount == null) return Visibility.Collapsed; ;
             return  (this.ChildCount > 0) ? Visibility.Visible : Visibility.Collapsed;
+        }
+        public double getResumeBarWidth(int fullWidth)
+        {
+            return (double)(fullWidth * this.UserData.PlayedPercentage / 100);
         }
     }
 }

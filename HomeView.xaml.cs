@@ -46,6 +46,7 @@ namespace Jellyfin
         UserDto User;
         SessionInfo SessionInfo;
         ObservableCollection<BaseItemDto> ViewList = new ObservableCollection<BaseItemDto>();
+        ObservableCollection<BaseItemDto> ResumeMediaList = new ObservableCollection<BaseItemDto>();
         public HomeView()
         {
 
@@ -63,10 +64,11 @@ namespace Jellyfin
             this.User = JsonConvert.DeserializeObject<UserDto>(localSettings.Values["User"] as string);
             this.SessionInfo = JsonConvert.DeserializeObject<SessionInfo>(localSettings.Values["Session"] as string);
             SystemNavigationManager.GetForCurrentView().BackRequested +=
-        SystemNavigationManager_BackRequested;
+                SystemNavigationManager_BackRequested;
             sendDeviceCapabilities();
             getSystemInfo();
             getUserViews();
+            getResumeMedia();
 
             Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(false);
         }
@@ -81,7 +83,7 @@ namespace Jellyfin
             }
         }
 
-        private void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
+        private async void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
         {
             try
             {
@@ -90,15 +92,52 @@ namespace Jellyfin
                     dataReader.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf8;
                     string message = dataReader.ReadString(dataReader.UnconsumedBufferLength);
                     Debug.WriteLine("Message received from MessageWebSocket: " + message);
+                    JsonObject.TryParse(message, out var data);
+                    var tmp = data["MessageType"].ToString().Replace("\"","");
+                    if (tmp.Equals("Play"))
+                    {
+                        var tmp2 = data["Data"].ToString();
+                        JsonObject.TryParse(data["Data"].ToString(), out var payload);
+                        var tmp3 = JsonArray.Parse(payload["ItemIds"].ToString());
+                        var mediaItem = await getMediaInfo(tmp3.First().ToString().Replace("\"",""));
+                        mediaItem.PlayFromResumeState = true;
+                        mediaItem.UserData.PlaybackPositionTicks = Int64.Parse(payload["StartPositionTicks"].ToString());
+                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                            Frame.Navigate(typeof(MediaPlayerView), mediaItem);
+                        });
+                        
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Windows.Web.WebErrorStatus webErrorStatus = Windows.Networking.Sockets.WebSocketError.GetStatus(ex.GetBaseException().HResult);
-                // Add additional code here to handle exceptions.
+                Debug.WriteLine(ex.Message);
             }
         }
 
+        public async Task<BaseItemDto> getMediaInfo(string mediaId)
+        {
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
+                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Users/" + User.Id + "/Items/" + mediaId + "?EnableImageTypes=Primary%2CBackdrop%2CBanner%2CThumb");
+                try
+                {
+                    authenticationResponse.EnsureSuccessStatusCode();
+                    var stringResponse = JsonObject.Parse(await authenticationResponse.Content.ReadAsStringAsync());
+                    return JsonConvert.DeserializeObject<BaseItemDto>(stringResponse.ToString());
+                    
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
         private void WebSocket_Closed(Windows.Networking.Sockets.IWebSocket sender, Windows.Networking.Sockets.WebSocketClosedEventArgs args)
         {
             Debug.WriteLine("WebSocket_Closed; Code: " + args.Code + ", Reason: \"" + args.Reason + "\"");
@@ -141,6 +180,31 @@ namespace Jellyfin
                         this.ViewList.Add(item);
                     };
                     MediaLibraryListView.ContainerContentChanging += focusListItem;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    await Task.Delay(1000);
+                }
+            }
+        }
+        public async void getResumeMedia()
+        {
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"" + localSettings.Values["DeviceName"] + "\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
+                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Users/" + this.User.Id + "/Items/Resume?Recursive=true&Fields=PrimaryImageAspectRatio%2CBasicSyncInfo&ImageTypeLimit=1&EnableImageTypes=Primary%2CBackdrop%2CThumb&EnableTotalRecordCount=false&MediaTypes=Video");
+                try
+                {
+                    authenticationResponse.EnsureSuccessStatusCode();
+                    var stringResponse = JsonObject.Parse(await authenticationResponse.Content.ReadAsStringAsync());
+                    foreach (var item in JsonConvert.DeserializeObject<ObservableCollection<BaseItemDto>>(stringResponse["Items"].ToString()))
+                    {
+                        this.ResumeMediaList.Add(item);
+                        ContinueWatchingTitle.Visibility = Visibility.Visible;
+                    };
                 }
                 catch (Exception ex)
                 {
@@ -214,10 +278,11 @@ namespace Jellyfin
             Frame.Navigate(typeof(MediaItemsBrowser), (sender as GridView).SelectedValue);
 
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ResumeMedia_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MediaLibraryListView.ContainerFromIndex(0);
+            ((sender as GridView).SelectedValue as BaseItemDto).PlayFromResumeState = true;
+            Frame.Navigate(typeof(MediaPlayerView), (sender as GridView).SelectedValue);
+
         }
     }
     }
