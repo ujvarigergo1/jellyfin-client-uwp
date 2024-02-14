@@ -32,6 +32,7 @@ using Windows.System.Profile;
 using System.Collections;
 using Windows.System;
 using Windows.Networking.Connectivity;
+using Jellyfin.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -47,6 +48,7 @@ namespace Jellyfin
         SessionInfo SessionInfo;
         ObservableCollection<BaseItemDto> ViewList = new ObservableCollection<BaseItemDto>();
         ObservableCollection<BaseItemDto> ResumeMediaList = new ObservableCollection<BaseItemDto>();
+        WebsocketService websocketService = WebsocketService.Instance;
         public HomeView()
         {
 
@@ -83,69 +85,10 @@ namespace Jellyfin
             }
         }
 
-        private async void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
-        {
-            try
-            {
-                using (DataReader dataReader = args.GetDataReader())
-                {
-                    dataReader.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf8;
-                    string message = dataReader.ReadString(dataReader.UnconsumedBufferLength);
-                    Debug.WriteLine("Message received from MessageWebSocket: " + message);
-                    JsonObject.TryParse(message, out var data);
-                    var tmp = data["MessageType"].ToString().Replace("\"","");
-                    if (tmp.Equals("Play"))
-                    {
-                        var tmp2 = data["Data"].ToString();
-                        JsonObject.TryParse(data["Data"].ToString(), out var payload);
-                        var tmp3 = JsonArray.Parse(payload["ItemIds"].ToString());
-                        var mediaItem = await getMediaInfo(tmp3.First().ToString().Replace("\"",""));
-                        mediaItem.PlayFromResumeState = true;
-                        mediaItem.UserData.PlaybackPositionTicks = Int64.Parse(payload["StartPositionTicks"].ToString());
-                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                            Frame.Navigate(typeof(MediaPlayerView), mediaItem);
-                        });
-                        
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Windows.Web.WebErrorStatus webErrorStatus = Windows.Networking.Sockets.WebSocketError.GetStatus(ex.GetBaseException().HResult);
-                Debug.WriteLine(ex.Message);
-            }
-        }
+        
 
-        public async Task<BaseItemDto> getMediaInfo(string mediaId)
-        {
-            using (var client = new HttpClient())
-            {
-
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
-                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Users/" + User.Id + "/Items/" + mediaId + "?EnableImageTypes=Primary%2CBackdrop%2CBanner%2CThumb");
-                try
-                {
-                    authenticationResponse.EnsureSuccessStatusCode();
-                    var stringResponse = JsonObject.Parse(await authenticationResponse.Content.ReadAsStringAsync());
-                    return JsonConvert.DeserializeObject<BaseItemDto>(stringResponse.ToString());
-                    
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    return null;
-                }
-            }
-        }
-        private void WebSocket_Closed(Windows.Networking.Sockets.IWebSocket sender, Windows.Networking.Sockets.WebSocketClosedEventArgs args)
-        {
-            Debug.WriteLine("WebSocket_Closed; Code: " + args.Code + ", Reason: \"" + args.Reason + "\"");
-            // Add additional code here to handle the WebSocket being closed.
-        }
         public Frame AppFrame { get { return this.Frame; } }
 
-        public MessageWebSocket messageWebSocket { get; private set; }
 
         private bool BackRequested()
         {
@@ -244,16 +187,8 @@ namespace Jellyfin
                     authenticationResponse.EnsureSuccessStatusCode();
                     var stringResponse = await authenticationResponse.Content.ReadAsStringAsync();
                     var parsedResponse = JsonObject.Parse(await authenticationResponse.Content.ReadAsStringAsync());
-                    messageWebSocket = new Windows.Networking.Sockets.MessageWebSocket();
-                    string address = (localSettings.Values["Address"] as string);
-                    string websocketUrl = address.Contains("https") ? address.Replace("https", "wss") : address.Replace("http", "ws");
-                    
-                    // In this example, we send/receive a string, so we need to set the MessageType to Utf8.
-                    this.messageWebSocket.Control.MessageType = Windows.Networking.Sockets.SocketMessageType.Utf8;
-
-                    this.messageWebSocket.MessageReceived += WebSocket_MessageReceived;
-                    this.messageWebSocket.Closed += WebSocket_Closed;
-                    await messageWebSocket.ConnectAsync(new Uri(websocketUrl + "/socket?api_key=" + localSettings.Values["AccessToken"] + "&deviceId=" + localSettings.Values["AuthHeader"]));
+                    websocketService.messageWebSocket.MessageReceived += WebSocket_MessageReceived;
+                    await websocketService.ConnectWebsocket();
                     localSettings.Values["System"] = stringResponse;
                 }
                 catch (Exception ex)
@@ -263,6 +198,9 @@ namespace Jellyfin
                 }
             }
         }
+
+        
+
         public void focusListItem(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
             if (args.ItemContainer is GridViewItem)
@@ -284,5 +222,62 @@ namespace Jellyfin
             Frame.Navigate(typeof(MediaPlayerView), (sender as GridView).SelectedValue);
 
         }
+        private async void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
+        {
+            try
+            {
+                using (DataReader dataReader = args.GetDataReader())
+                {
+                    dataReader.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf8;
+                    string message = dataReader.ReadString(dataReader.UnconsumedBufferLength);
+                    Debug.WriteLine("Message received from MessageWebSocket: " + message);
+                    JsonObject.TryParse(message, out var data);
+                    var tmp = data["MessageType"].ToString().Replace("\"", "");
+                    if (tmp.Equals("Play"))
+                    {
+                        var tmp2 = data["Data"].ToString();
+                        JsonObject.TryParse(data["Data"].ToString(), out var payload);
+                        var tmp3 = JsonArray.Parse(payload["ItemIds"].ToString());
+                        var mediaItem = await getMediaInfo(tmp3.First().ToString().Replace("\"", ""));
+                        if (payload.ContainsKey("StartPositionTicks"))
+                        {
+                            mediaItem.PlayFromResumeState = true;
+                            mediaItem.UserData.PlaybackPositionTicks = Int64.Parse(payload["StartPositionTicks"].ToString());
+                        }
+                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                            Frame.Navigate(typeof(MediaPlayerView), mediaItem);
+                        });
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Windows.Web.WebErrorStatus webErrorStatus = Windows.Networking.Sockets.WebSocketError.GetStatus(ex.GetBaseException().HResult);
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        public async Task<BaseItemDto> getMediaInfo(string mediaId)
+        {
+            using (var client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
+                var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Users/" + User.Id + "/Items/" + mediaId + "?EnableImageTypes=Primary%2CBackdrop%2CBanner%2CThumb");
+                try
+                {
+                    authenticationResponse.EnsureSuccessStatusCode();
+                    var stringResponse = JsonObject.Parse(await authenticationResponse.Content.ReadAsStringAsync());
+                    return JsonConvert.DeserializeObject<BaseItemDto>(stringResponse.ToString());
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
     }
-    }
+}

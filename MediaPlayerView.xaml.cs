@@ -1,4 +1,5 @@
 ﻿using Jellyfin.Models;
+using Jellyfin.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -20,6 +21,7 @@ using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,6 +51,7 @@ namespace Jellyfin
         string playbackSessionId;
         long token;
         bool reportingActive = false;
+        WebsocketService websocketService = WebsocketService.Instance;
         public MediaPlayerView()
         {
             this.InitializeComponent();
@@ -93,6 +96,9 @@ namespace Jellyfin
                 MainMediaPlayer.MediaPlayer.PlaybackSession.Position = TimeSpan.FromMilliseconds(this.MediaLibrary.UserData.PlaybackPositionTicks/10000);
             }
             repeatPlaybackReporting();
+            websocketService.Close(true);
+            websocketService.messageWebSocket.MessageReceived += this.WebSocket_PlayingMessageReceived;
+            websocketService.ConnectWebsocket();
         }
         private async void ContentChanged(DependencyObject sender, DependencyProperty dp)
         {
@@ -131,7 +137,8 @@ namespace Jellyfin
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
                 string parentId;
-                if (this.MediaLibrary.DisplayPreferencesId != null) { parentId = this.MediaLibrary.DisplayPreferencesId; } else { parentId = this.MediaLibrary.Id.ToString(); }
+                //if (this.MediaLibrary.DisplayPreferencesId != null) { parentId = this.MediaLibrary.DisplayPreferencesId; } else { parentId = this.MediaLibrary.Id.ToString(); }
+                if(this.MediaLibrary.Id != null) { parentId = this.MediaLibrary.Id.ToString(); } else { parentId = this.MediaLibrary.DisplayPreferencesId; }
                 var authenticationResponse = await client.GetAsync((localSettings.Values["Address"] as string) + "/Items/" + parentId + "/PlaybackInfo?UserId=" + this.User.Id);
                 try
                 {
@@ -157,14 +164,14 @@ namespace Jellyfin
             playbackProgressInfo.MediaSourceId = MediaLibrary.Id.ToString();
             playbackProgressInfo.PositionTicks = 0;
             playbackProgressInfo.PlaybackStartTimeTicks = ((long)MainMediaPlayer.MediaPlayer.PlaybackSession.NaturalDuration.TotalMilliseconds);
-            playbackProgressInfo.EventName = "timeupdate";
+            playbackProgressInfo.EventName = null;
             using (var client = new HttpClient())
             {
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("X-Emby-Authorization", "MediaBrowser Client=\"Jellyfin Xbox\", Device=\"Xbox\", DeviceId=\"" + localSettings.Values["AuthHeader"] + "\", Version=\"10.8.13\", Token=\"" + localSettings.Values["AccessToken"] + "\"");
 
-                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing/Playing", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo), System.Text.Encoding.UTF8, "application/json"));
+                var authenticationResponse = await client.PostAsync((localSettings.Values["Address"] as string) + "/Sessions/Playing", new StringContent(JsonConvert.SerializeObject(this.playbackProgressInfo), System.Text.Encoding.UTF8, "application/json"));
                 try
                 {
                     authenticationResponse.EnsureSuccessStatusCode();
@@ -283,6 +290,56 @@ namespace Jellyfin
         private void MainMediaPlayer_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             startHideControlsTimer();
+        }
+        private void WebSocket_PlayingMessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
+        {
+            try
+            {
+                using (DataReader dataReader = args.GetDataReader())
+                {
+                    dataReader.UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding.Utf8;
+                    string message = dataReader.ReadString(dataReader.UnconsumedBufferLength);
+                    Debug.WriteLine("Message received from MessageWebSocket: " + message);
+                    JsonObject.TryParse(message, out var data);
+                    var tmp = data["MessageType"].ToString().Replace("\"", "");
+                    if (tmp.Equals("Playstate"))
+                    {
+                        var tmp2 = data["Data"].ToString();
+                        JsonObject.TryParse(data["Data"].ToString(), out var payload);
+                        var command = payload["Command"].ToString();
+                        if (command.ToString().Replace("\"","").Equals("PlayPause"))
+                        {
+                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                if (this.MainMediaPlayer.MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.Paused)
+                                {
+                                    this.MainMediaPlayer.MediaPlayer.Pause();
+                                }
+                                else
+                                {
+                                    this.MainMediaPlayer.MediaPlayer.Play();
+                                }
+                            });
+                        } else if (command.ToString().Replace("\"", "").Equals("Seek"))
+                        {
+                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                if (payload.ContainsKey("SeekPositionTicks"))
+                                {
+                                    MainMediaPlayer.MediaPlayer.PlaybackSession.Position = TimeSpan.FromMilliseconds(Int64.Parse(payload["SeekPositionTicks"].ToString()) / 10000);
+                                }
+                            });
+                            
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Windows.Web.WebErrorStatus webErrorStatus = Windows.Networking.Sockets.WebSocketError.GetStatus(ex.GetBaseException().HResult);
+                Debug.WriteLine(ex.Message);
+            }
         }
     }
     }
